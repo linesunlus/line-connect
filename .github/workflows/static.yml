@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {font-family: Arial, sans-serif;padding: 20px;}
+        label {display: block;margin-bottom: 15px;}
+        select { width:15%; border:1px solid#f7f5f5; border-radius : 10px ; box-sizing:border-box ; margin-bottom:10px;padding:10px;}
+        input { width:35%; border:1px solid#f7f6f6; border-radius : 10px ; box-sizing:border-box ; margin-bottom:10px;padding:10px;}
+    </style>
+</head>
+<body>
+    <h1>請輸入基本資料</h1>
+    
+    <label for="gender">性別:
+    <select id="gender">
+        <option value="1">男</option>
+        <option value="2">女</option>
+        <meta name="viewpoint" content="width=device-width , initial-scale=1">
+    </select>
+    <label for="height">身高 (cm):
+    <input type="word" id="height" placeholder="ex：170"/>
+  
+    <label for="birthdate">西元出生年:
+    <input type="word" id="birthyear"  placeholder="ex：1995" />
+
+    <label for="birthmonth">月:
+    <select id="birthmonth">
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <!-- 添加更多月份 -->
+    </select>
+    <label for="birthdate">日:
+    <select id="birthday">
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+        <!-- 添加更多日期 -->
+    </select>
+
+    <h2>生成的QR碼:</h2>
+    <iframe id="qrcode" src="" width="200" height="200"></iframe>
+
+    <script>
+        function UpdateQRCode() {
+            // 取得表單數據
+            var gender = document.getElementById("gender").value;
+            var height = document.getElementById("height").value;
+            var birthyear = document.getElementById("birthyear").value;
+            var birthmonth = document.getElementById("birthmonth").value;
+            var birthday = document.getElementById("birthday").value;
+
+            // 組合成要編碼的字串
+            var value =`0000000000|0000|${gender}|${birthyear}-${birthmonth}-${birthday}|${height}|0|0.5`;
+            
+            // 更新QR碼
+            document.getElementById("qrcode").setAttribute("src", "https://api.mimfa.net/qrcode?value=" + encodeURIComponent(value) + "&as=value");
+        }
+
+        // 監聽所有輸入框的變化
+        document.getElementById("gender").addEventListener("change", UpdateQRCode);
+        document.getElementById("height").addEventListener("input", UpdateQRCode);
+        document.getElementById("birthyear").addEventListener("change", UpdateQRCode);
+        document.getElementById("birthmonth").addEventListener("change", UpdateQRCode);
+        document.getElementById("birthday").addEventListener("change", UpdateQRCode);
+
+        // 頁面載入完成後也更新一次QR碼
+        document.addEventListener("DOMContentLoaded", UpdateQRCode);
+    </script>
+</body>
+</html>
+
+
